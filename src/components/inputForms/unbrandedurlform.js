@@ -9,8 +9,9 @@ class UnbrandedForm extends React.Component {
         const className = `field ${formProps.meta.error && formProps.meta.touched ? 'error' : ''}`;
         return (
             <div className={className}>
-                <div className="ui action input">
-                    <input {...formProps.input} autoComplete='off' type="text"/>
+                <label>Url To Shorten</label>
+                <div className='ui action input'>
+                    <input {...formProps.input} autoComplete='off' type="text" placeholder='Url to shorten'/>
                     <button className="ui button primary">Shorten</button>
                 </div>
             </div>

@@ -20,8 +20,20 @@ class App extends React.Component {
         return (
             <div className='ui container'>
                 <Header/>
-                <TypeSelector/>
-                {this._renderForm()}
+                <div className='ui segments'>
+                    <div className='ui center aligned segment'>
+                        <h2>Generate A New Short Url</h2>
+                    </div>
+                    <div className='ui basic segment'>
+                        {this._renderForm()}
+                    </div>
+                    <div className='ui basic center aligned segment'>
+
+                    </div>
+                    <div className='ui basic center aligned segment'>
+                        <TypeSelector/>
+                    </div>
+                </div>
             </div>
         )
     }

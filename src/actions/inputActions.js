@@ -1,5 +1,4 @@
 import urlDatabase from "../apis/urlDatabase";
-
 import {
     REQUEST_URL_TO_BE_SHORTENED,
     RESPONSE_URL_TO_BE_SHORTENED_ERROR,

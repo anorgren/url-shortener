@@ -7,6 +7,7 @@ import thunkMiddleware from 'redux-thunk';
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 import App from "./components/app/app";
+import EditForm from "./components/edit/editForm";
 
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -21,7 +22,7 @@ ReactDOM.render(
         <BrowserRouter>
             <Switch>
                 <Route path="/" exact component={App}/>
-                <Route path="/edit" exact component={App}/>
+                <Route path="/edit" exact component={EditForm}/>
             </Switch>
         </BrowserRouter>
     </Provider>,

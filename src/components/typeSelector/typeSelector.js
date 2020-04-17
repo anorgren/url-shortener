@@ -6,40 +6,34 @@ import "./typeSelector.css"
 
 class TypeSelector extends React.Component {
     componentDidMount() {
-        console.log(this.props.createBranded)
     }
 
-    _renderClassNames = () => {
-        let baseClassName = "ui button navy";
-        let activeClassName = "ui button navy";
-        let classNames = {
-            unbranded: baseClassName,
-            branded: baseClassName
-        };
-        if (this.props.createBranded) {
-            classNames.branded = activeClassName;
-            classNames.unbranded = baseClassName;
-        } else {
-            classNames.branded = baseClassName;
-            classNames.unbranded = activeClassName;
-        }
-        return classNames;
-    };
+    // renderClassNames = () => {
+    //     let baseClassName = "ui button navy";
+    //     let activeClassName = "ui button positive active";
+    //     let classNames = {
+    //         unbranded: baseClassName,
+    //         branded: baseClassName
+    //     };
+    //     if (this.props.createBranded) {
+    //         classNames.branded = activeClassName;
+    //         classNames.unbranded = activeClassName;
+    //     } else {
+    //         classNames.branded = activeClassName;
+    //         classNames.unbranded = activeClassName;
+    //     }
+    //     return classNames;
+    // };
 
     render() {
         return (
-            <div className='ui buttons fluid'>
-                <button
-                    className={this._renderClassNames().unbranded}
-                    onClick={this.props.requestUnbrandedUrl}
-                >
+
+            <div className="ui buttons">
+                <button className="ui button gray" onClick={this.props.requestUnbrandedUrl}>
                     Unbranded
                 </button>
-                <div className='or'/>
-                <button
-                    className={this._renderClassNames().branded}
-                    onClick={this.props.requestBrandedUrl}
-                >
+                <div className="or"/>
+                <button className="ui navy button" onClick={this.props.requestBrandedUrl}>
                     Branded
                 </button>
             </div>

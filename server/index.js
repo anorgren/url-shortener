@@ -9,7 +9,6 @@ const app = express();
 
 const connectOptions = {
     keepAlive: true,
-    reconnectTries: Number.MAX_VALUE,
     useNewUrlParser: true
 };
 

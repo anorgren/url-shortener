@@ -19,25 +19,17 @@ router.get('/:urlCode', (req, res) => {
             (error) => res.status(404).send(`Error finding url: ${error}`));
 });
 
-router.patch('/:urlCode', async (req, res) => {
-    const modifiedDate = new Date();
-    return UrlAccessor.updateUrlByCode(req.params.urlCode, {
-        originalUrl: req.body.originalUrl,
-        modifiedAt: modifiedDate})
-        .then(() => res.status(200).send(`Updated url code ${req.params.urlCode} successfully`),
-            error => res.status(404).send(`Error updating url: ${error}`));
-
-    // try {
-    //     let urlItem = await UrlAccessor.getUrlByCode(req.params.urlCode);
-    //     if (urlItem) {
-    //         return UrlAccessor.updateUrlByCode(req.params.urlCode, req.body.originalUrl)
-    //             .then((response) => res.status(200).send(`Updated Url ${response}`))
-    //     }
-    // } catch (error) {
-    //     res.status(404).send('Error updating url')
-    // }
-
-});
+// router.patch('/:urlCode', async (req, res) => {
+//     const modifiedDate = new Date();
+//     return UrlAccessor.getUrlByCode(req.params.urlCode).then(
+//         UrlAccessor.updateUrlByCode(req.params.urlCode, {
+//             originalUrl: req.body.originalUrl,
+//             modifiedAt: modifiedDate})
+//             .then(() => res.status(200).send(`Updated url code ${req.params.urlCode} test successfully`),
+//                 error => res.status(404).send(`Error updating url: ${error}`)),
+//         err => res.status(404).send(`Cannot find url ${err}`)
+//     )
+// });
 
 router.delete('/:urlCode', (req, res) => {
     UrlAccessor.deleteUrlByCode(req.params.urlCode);

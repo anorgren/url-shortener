@@ -9,8 +9,9 @@ class BrandedForm extends React.Component {
         const className = `field ${formProps.meta.error && formProps.meta.touched ? 'error' : ''}`;
         return (
             <div className={className}>
-                <div className="ui action input">
-                    <input {...formProps.input} autoComplete='off' type="text"/>
+                <label>Url To Shorten</label>
+                <div className='ui action input'>
+                    <input {...formProps.input} autoComplete='off' type="text" placeholder='Url to shorten'/>
                     <button className="ui button primary">Shorten</button>
                 </div>
             </div>
@@ -21,10 +22,8 @@ class BrandedForm extends React.Component {
         const className = `field ${formProps.meta.error && formProps.meta.touched ? 'error' : ''}`;
         return (
             <div className={className}>
-                <h3>Branded Term:</h3>
-                <div className="ui action input">
-                    <input {...formProps.input} autoComplete='off' type="text" placeholder="Url to be shortened"/>
-                </div>
+                <label>Branded Term</label>
+                <input {...formProps.input} autoComplete='off' type="text" placeholder="Your custom url ending"/>
             </div>
         )
     };
@@ -34,17 +33,16 @@ class BrandedForm extends React.Component {
             originalUrl: formValues.url,
             isBranded: true,
             urlCode: formValues.brandedTerm,
-            baseUrl: "http://localhost:3000"
+            baseUrl: "http://localhost:3001"
         };
         this.props.createNewShortenedUrl(urlObject);
-        this.props.reset();
     };
 
     render() {
         return (
             <form onSubmit={this.props.handleSubmit(this.onSubmit)} className="ui form">
-                <Field name='brandedTerm' component={this.renderInputBrandedTerm} placeholder="Your custom Url ending..."/>
-                <Field name="url" component={this.renderInputUrl} placeholder="Url to be shortened..." />
+                <Field name="url" component={this.renderInputUrl}/>
+                <Field name='brandedTerm' component={this.renderInputBrandedTerm}/>
             </form>
         )
     }
