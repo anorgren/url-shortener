@@ -3,17 +3,34 @@ import { connect } from 'react-redux';
 
 import Header from "./header";
 import UnbrandedForm from "../inputForms/unbrandedUrlForm";
+import BrandedForm from "../inputForms/brandedUrlForm";
+import TypeSelector from "../typeSelector/typeSelector";
 
 
 class App extends React.Component {
+    _renderForm() {
+        if (this.props.createBranded) {
+            return (<BrandedForm/>)
+        } else {
+            return (<UnbrandedForm/>)
+        }
+    }
+
     render() {
         return (
             <div className='ui container'>
                 <Header/>
-                <UnbrandedForm/>
+                <TypeSelector/>
+                {this._renderForm()}
             </div>
         )
     }
 }
 
-export default connect()(App);
+const mapStateToProps = state => {
+    return {
+        createBranded: state.urlType.isBranded
+    }
+};
+
+export default connect(mapStateToProps)(App);

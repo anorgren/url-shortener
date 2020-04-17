@@ -5,7 +5,7 @@ import {
 } from "../constants/actionTypes";
 
 
-export default (state, action) => {
+export default (state = {shortenedUrl: {}}, action) => {
     switch(action.type) {
         case REQUEST_URL_TO_BE_SHORTENED:
         case RESPONSE_URL_TO_BE_SHORTENED_ERROR:

@@ -15,21 +15,11 @@ router.get('/', (req, res) => {
 router.get('/:urlCode', (req, res) => {
     const urlCode = req.params.urlCode;
     return UrlAccessor.getUrlByCode(urlCode)
-        .then((response) => res.status(200).send(response),
+        .then((response) => res.redirect(301, response.originalUrl),
             (error) => res.status(404).send(`Error finding url: ${error}`));
 });
 
 router.patch('/:urlCode', async (req, res) => {
-    // try {
-    //     let foundUrl = await UrlAccessor.getUrlByCode(req.params.urlCode)
-    //     if (foundUrl) {
-    //         return UrlAccessor.updateUrlByCode(foundUrl._id, 'test')
-    //             .then(res.status(200).send("Updated object"));
-    //     }
-    // } catch (error) {
-    //     return res.status(404).send("Cant find url")
-    // }
-
     const modifiedDate = new Date();
     return UrlAccessor.updateUrlByCode(req.params.urlCode, {
         originalUrl: req.body.originalUrl,
