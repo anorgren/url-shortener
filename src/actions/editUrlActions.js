@@ -25,6 +25,6 @@ export function editShortenedUrl(urlObject) {
         dispatch(requestUrlEdit());
         return urlDatabase.patch(`/api/urlShort/${urlObject.urlCode}`, urlObject)
             .then(response => dispatch(responseUrlSuccess(response.data)),
-                responseUrlError)
+                () => dispatch(responseUrlError()))
     }
 }
