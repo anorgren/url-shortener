@@ -9,27 +9,38 @@ const UrlAccessor = require('../models/url.model');
 router.get('/', (req, res) => {
     return UrlAccessor.getAllUrls()
         .then((response) => res.status(200).send(response),
-            (error) => res.status(404).send(`Error finding url: ${error}`));
+            (error) => res.status(404).send(`Error finding url: ${error}`)).catch(()=> res.send(404).send("cant find"));
 });
 
 router.get('/:urlCode', (req, res) => {
     const urlCode = req.params.urlCode;
     return UrlAccessor.getUrlByCode(urlCode)
-        .then((response) => res.redirect(301, response.originalUrl),
-            (error) => res.status(404).send(`Error finding url: ${error}`));
+        .then((response) => {
+            if (response) {
+                res.redirect(301, response.originalUrl)
+            } else {
+                res.status(404).send("Can't find url")
+            }
+        },
+            (error) => res.status(404).send(`Error finding url. ${error}`))
+        // .then((response) => res.redirect(301, response.originalUrl),
+        //     (error) => res.status(404).send(`Error finding url: ${error}`));
 });
 
-// router.patch('/:urlCode', async (req, res) => {
-//     const modifiedDate = new Date();
-//     return UrlAccessor.getUrlByCode(req.params.urlCode).then(
-//         UrlAccessor.updateUrlByCode(req.params.urlCode, {
-//             originalUrl: req.body.originalUrl,
-//             modifiedAt: modifiedDate})
-//             .then(() => res.status(200).send(`Updated url code ${req.params.urlCode} test successfully`),
-//                 error => res.status(404).send(`Error updating url: ${error}`)),
-//         err => res.status(404).send(`Cannot find url ${err}`)
-//     )
-// });
+router.patch('/:urlCode', async (req, res) => {
+    const modifiedDate = new Date();
+    let url = await UrlAccessor.getUrlByCode(req.params.urlCode);
+
+    if (url) {
+        return UrlAccessor.updateUrlByCode(req.params.urlCode, {
+            originalUrl: req.body.originalUrl,
+            modifiedAt: modifiedDate
+        }).then(() => res.status(200).send(`Updated url ${url.urlCode} successfully`),
+            (error) => res.status(404).send(`Error updating url code ${error}`))
+    } else {
+        return res.status(400).send("Url code does not exist")
+    }
+});
 
 router.delete('/:urlCode', (req, res) => {
     UrlAccessor.deleteUrlByCode(req.params.urlCode);
