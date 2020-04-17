@@ -2,8 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import Header from "./header";
-import UnbrandedForm from "./unbrandedUrlForm";
-import BrandedForm from './brandedUrlForm';
+import UnbrandedForm from "../test/unbrandedUrlForm";
+import BrandedForm from "./brandedUrlForm";
 import TypeSelector from "../typeSelector/typeSelector";
 
 
