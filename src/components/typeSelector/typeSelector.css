@@ -1,0 +1,22 @@
+.ui.navy {
+    background-color: #1768AC;
+    color: #fff;
+}
+
+.ui.navy:hover {
+    background-color: #03256C;
+    color: #fff;
+}
+.ui.navy:focus {
+    background-color: #03256C;
+    color: #fff;
+}
+.ui.navy:visited {
+    background-color: #03256C;
+    color: #fff;
+}
+
+.ui.navy:active {
+    background-color: #1768AC;
+    color: #fff;
+}
