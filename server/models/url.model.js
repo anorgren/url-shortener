@@ -9,10 +9,6 @@ function insertUrl(url) {
     return UrlModel.create(url);
 }
 
-function getAllUrls() {
-    return UrlModel.find().exec();
-}
-
 function getUrlByCode(urlCode) {
     return UrlModel.findOne({urlCode: urlCode}).exec();
 }
@@ -32,7 +28,6 @@ function deleteUrlByCode(urlCode) {
 
 module.exports = {
     insertUrl,
-    getAllUrls,
     getUrlByCode,
     updateUrlByCode,
     deleteUrlByCode,

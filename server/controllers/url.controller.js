@@ -6,12 +6,6 @@ const shortUrlGenerator = require("../middlewares/urlCode.middlewares");
 const UrlAccessor = require('../models/url.model');
 
 
-router.get('/', (req, res) => {
-    return UrlAccessor.getAllUrls()
-        .then((response) => res.status(200).send(response),
-            (error) => res.status(404).send(`Error finding url: ${error}`));
-});
-
 router.get('/:urlCode', async (req, res) => {
     const urlCode = req.params.urlCode;
     return UrlAccessor.getUrlByCode(urlCode)
