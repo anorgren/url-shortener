@@ -19,6 +19,25 @@ router.get('/:urlCode', async (req, res) => {
             (error) => res.status(404).send(`Error finding url. ${error}`))
 });
 
+router.get('/:urlCode/update', (req, res) => {
+    res.redirect(301,"https://mern-url-app.herokuapp.com/update?" + req.params.urlCode)
+});
+
+// router.get('/find/:urlCode', async (req, res) => {
+//     const urlCode = req.params.urlCode;
+//     return UrlAccessor.getUrlByCode(urlCode)
+//         .then((response) => {
+//                 if (response) {
+//                     res.status(200).send(response)
+//                 } else {
+//                     res.status(404).send("Can't find url")
+//                 }
+//             },
+//             (error) => res.status(404).send(`Error finding url. ${error}`))
+// });
+
+// "https://mern-url-app.herokuapp.com/update?" + req.params.urlCode
+
 router.patch('/:urlCode', async (req, res) => {
     let urlItem = await UrlAccessor.getUrlByCode(req.params.urlCode);
     if (urlItem) {
