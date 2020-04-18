@@ -108,3 +108,5 @@ dist
 # intellij
 .DS_Store
 .idea/
+
+yarn.lock
