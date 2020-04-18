@@ -29,11 +29,14 @@ class EditForm extends React.Component {
         );
     };
 
-    renderErrorMessage = () => {
+    renderMessage = () => {
         let message;
         if(this.props.url.editedUrl) {
-            message = `Successfully updated url. Your url: ${this.props.url.editedUrl.shortUrl}`
-        }
+            if(this.props.url.editedUrl.shortUrl) {
+                message = `Successfully updated url. Your url: ${this.props.url.editedUrl.shortUrl}`
+            } else {
+                message = `Could not update provided url code. Please ensure url code exists.`
+            }}
         return (
             <div className='ui basic center aligned segment'>
                 {message}
@@ -65,7 +68,7 @@ class EditForm extends React.Component {
                        component={this.renderInput}
                        label='New Link Url'
                        placeholder="New url to link to current shortened url resource"/>
-                {this.renderErrorMessage()}
+                {this.renderMessage()}
                 <div className="ui basic segment center aligned">
                     <button className='ui primary button'
                             onClick={this.props.handleSubmit(values => {
