@@ -26,8 +26,7 @@ class EditForm extends React.Component {
                 <label>{formProps.label}</label>
                 <input {...formProps.input}
                        autoComplete="off"
-                       placeholder={formProps.placeholder}
-                       value={formProps.defaultValue}
+                       placeholder="The shortened url ending of the resource to update"
                 />
                 <div>{this.renderError(formProps.meta)}</div>
             </div>
@@ -97,9 +96,10 @@ class EditForm extends React.Component {
     }
 }
 
-const mapStateToProps  = (state) => {
+const mapStateToProps  = (state, formProps) => {
     return {
-        url: state.editedUrl
+        url: state.editedUrl,
+        initialValues: {urlCode: formProps.queryValue}
     }
 };
 
@@ -118,13 +118,12 @@ const validate = (formValues) => {
             errors.newLinkUrl = "You must enter a valid url with http(s) protocol"
         }
     }
-
-
     return errors;
 };
 
-export default connect(mapStateToProps, { editShortenedUrl, deleteShortenedUrl })(reduxForm({
-    form: "editForm",
-    validate: validate,
-    destroyOnUnmount: false,
+export default connect(mapStateToProps, { editShortenedUrl, deleteShortenedUrl })(
+    reduxForm({
+        form: "editForm",
+        validate: validate,
+        destroyOnUnmount: false,
 })(EditForm));

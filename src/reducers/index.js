@@ -13,5 +13,5 @@ export default combineReducers({
     urlType: typeSelectorReducers,
     editedUrl: editReducers,
     deleteUrl: deleteReducers,
-    isEdit: editDeleteSelectReducers
+    isEdit: editDeleteSelectReducers,
 });

@@ -36,7 +36,7 @@ router.patch('/:urlCode', async (req, res) => {
     return res.status(404).send("Could not update url code.")
 });
 
-router.post('/edit/:urlCode', async (req, res) => {
+router.post('/:urlCode/edit', async (req, res) => {
     let urlItem = await UrlAccessor.getUrlByCode(req.params.urlCode);
     if (urlItem) {
         const modifiedAt = new Date();

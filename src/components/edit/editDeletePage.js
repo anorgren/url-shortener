@@ -8,6 +8,7 @@ import EditDeleteSelector from "../typeSelector/editDeleteSelector";
 
 
 class EditDeletePage extends React.Component {
+
     _renderForm() {
         if (this.props.isEdit) {
             return (<EditForm queryValue={queryString.parse(this.props.location.search).urlCode}/>)

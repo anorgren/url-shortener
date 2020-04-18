@@ -26,8 +26,7 @@ class DeleteForm extends React.Component {
                 <label>{formProps.label}</label>
                 <input {...formProps.input}
                        autoComplete="off"
-                       placeholder={formProps.placeholder}
-                       value={formProps.defaultValue}
+                       placeholder="The shortened url ending of the resource to be deleted"
                 />
                 <div>{this.renderError(formProps.meta)}</div>
             </div>
@@ -81,9 +80,10 @@ class DeleteForm extends React.Component {
     }
 }
 
-const mapStateToProps  = (state) => {
+const mapStateToProps  = (state, formProps) => {
     return {
-        deleteMessage: state.deleteUrl.deleteMsg
+        deleteMessage: state.deleteUrl.deleteMsg,
+        initialValues: {urlCode: formProps.queryValue}
     }
 };
 
