@@ -90,7 +90,7 @@ class EditForm extends React.Component {
                                 this.onSubmit({
                                     ...values, edit: true
                                 })
-                    })}>Edit Url</button>
+                    })}>Update Url</button>
                 </div>
             </form>
         )
