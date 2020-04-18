@@ -42,8 +42,11 @@ class DeleteForm extends React.Component {
         )
     };
 
-    onSubmit = (formValues) => {
-        this.props.deleteShortenedUrl(formValues.urlCode);
+    onSubmit = async (formValues) => {
+       let isDeleted = await this.props.deleteShortenedUrl(formValues.urlCode);
+       if (isDeleted) {
+           this.props.history.push("/")
+       }
     };
 
     render() {
