@@ -19,8 +19,8 @@ router.get('/:urlCode', async (req, res) => {
             (error) => res.status(404).send(`Error finding url. ${error}`))
 });
 
-router.get('/:urlCode/update', (req, res) => {
-    res.redirect(301,"https://mern-url-app.herokuapp.com/update?urlCode=" + req.params.urlCode)
+router.get('/:urlCode/edit', (req, res) => {
+    res.redirect(301,"https://mern-url-app.herokuapp.com/edit?urlCode=" + req.params.urlCode)
 });
 
 router.patch('/:urlCode', async (req, res) => {
