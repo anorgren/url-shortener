@@ -57,7 +57,6 @@ class EditForm extends React.Component {
     };
 
     render() {
-        console.log(this.props)
         return (
             <form onSubmit={this.props.handleSubmit(this.onSubmit)} className="ui error form">
                 <Field name="urlCode"
