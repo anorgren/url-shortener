@@ -29,17 +29,6 @@ class UnbrandedForm extends React.Component {
         );
     };
 
-    // renderInput = (formProps) => {
-    //     const className = `field ${formProps.meta.error && formProps.meta.touched ? 'error' : ''}`;
-    //     return (
-    //         <div className={className}>
-    //             <label>Url To Shorten</label>
-    //             <input {...formProps.input} autoComplete='off' type="text" placeholder='Url to shorten'/>
-    //             <div>{this.renderError(formProps.meta)}</div>
-    //         </div>
-    //     )
-    // };
-
     renderOutputMsg = () => {
         let message;
         if (this.props.resultUrl === "default") {

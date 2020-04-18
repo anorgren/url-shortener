@@ -1,16 +1,12 @@
 import React from 'react';
 import { Field, reduxForm} from 'redux-form';
 import { connect } from 'react-redux';
-import queryString from 'query-string';
 
 import { editShortenedUrl } from "../../actions/editUrlActions";
 import { deleteShortenedUrl } from "../../actions/deleteUrlActions";
 
-class EditForm extends React.Component {
-    componentDidMount() {
-        console.log(this.props.location.search)
-    }
 
+class EditForm extends React.Component {
     renderError({error, touched}) {
         if (touched && error) {
             return (
@@ -31,17 +27,11 @@ class EditForm extends React.Component {
                 <input {...formProps.input}
                        autoComplete="off"
                        placeholder={formProps.placeholder}
-                       value={this.renderPlaceHolder()}
+                       value={formProps.defaultValue}
                 />
                 <div>{this.renderError(formProps.meta)}</div>
             </div>
         );
-    };
-
-    renderPlaceHolder = () => {
-        if(this.props.location.search) {
-            return queryString.parse(this.props.location.search).urlCode
-        }
     };
 
     renderMessage = () => {
@@ -71,17 +61,29 @@ class EditForm extends React.Component {
         }
     };
 
+    renderDefaultValue = () => {
+        if (this.props.queryValue) {
+            return this.props.queryValue;
+        } else {
+            return ""
+        }
+    };
+
     render() {
         return (
             <form onSubmit={this.props.handleSubmit(this.onSubmit)} className="ui error form">
                 <Field name="urlCode"
                        component={this.renderInput}
                        label='Url Code'
-                       placeholder="The shortened url ending of the resource to update"/>
+                       placeholder="The shortened url ending of the resource to update"
+                       defaultValue={this.renderDefaultValue()}
+                />
                 <Field name='newLinkUrl'
                        component={this.renderInput}
                        label='New Link Url'
-                       placeholder="New url to link to current shortened url resource"/>
+                       placeholder="New url to link to current shortened url resource"
+                       defaultValue=""
+                />
                 {this.renderMessage()}
                 <div className="ui basic segment center aligned">
                     <button className='ui primary button'

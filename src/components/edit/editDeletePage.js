@@ -1,19 +1,18 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import Header from "./header";
-import BrandedForm from "../inputForms/brandedurlform";
-import UnbrandedForm from "../inputForms/unbrandedurlform";
-import TypeSelector from "../typeSelector/typeSelector";
-import './app.css'
+import queryString from "query-string";
+import EditForm from "./editForm";
+import DeleteForm from "../delete/deleteForm";
+import EditDeleteSelector from "../typeSelector/editDeleteSelector";
 
 
-class App extends React.Component {
+class EditDeletePage extends React.Component {
     _renderForm() {
-        if (this.props.createBranded) {
-            return (<BrandedForm/>)
+        if (this.props.isEdit) {
+            return (<EditForm queryValue={queryString.parse(this.props.location.search).urlCode}/>)
         } else {
-            return (<UnbrandedForm/>)
+            return (<DeleteForm queryValue={queryString.parse(this.props.location.search).urlCode}/>)
         }
     }
 
@@ -22,10 +21,10 @@ class App extends React.Component {
             <div className='ui container'>
                 <div className='ui segments'>
                     <div className='ui center aligned segment'>
-                        <h2>Generate A New Short Url</h2>
+                        <h2>Edit Existing Url</h2>
                     </div>
                     <div className='ui basic center aligned segment'>
-                        <TypeSelector/>
+                        <EditDeleteSelector/>
                     </div>
                     <div className='ui basic segment'>
                         {this._renderForm()}
@@ -38,8 +37,8 @@ class App extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        createBranded: state.urlType.isBranded
+        isEdit: state.isEdit.isEdit
     }
 };
 
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps)(EditDeletePage);

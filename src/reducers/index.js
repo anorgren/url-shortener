@@ -4,6 +4,7 @@ import urlReducers from "./urlReducers";
 import typeSelectorReducers from "./typeSelectorReducers";
 import editReducers from "./editReducers";
 import deleteReducers from "./deleteReducers";
+import editDeleteSelectReducers from "./editDeleteSelectReducers";
 
 
 export default combineReducers({
@@ -11,5 +12,6 @@ export default combineReducers({
     resultUrl: urlReducers,
     urlType: typeSelectorReducers,
     editedUrl: editReducers,
-    deleteUrl: deleteReducers
+    deleteUrl: deleteReducers,
+    isEdit: editDeleteSelectReducers
 });

@@ -7,8 +7,9 @@ import thunkMiddleware from 'redux-thunk';
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 import App from "./components/app/app";
-import EditPage from "./components/edit/editPage";
 import DeletePage from "./components/delete/deletePage";
+import EditDeletePage from "./components/edit/editDeletePage";
+import Header from "./components/app/header";
 
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -21,10 +22,10 @@ const store = createStore(
 ReactDOM.render(
     <Provider store={store}>
         <BrowserRouter>
+            <Header/>
             <Switch>
                 <Route path="/" exact component={App}/>
-                <Route path="/update" component={EditPage}/>
-                <Route path="/delete" exact component={DeletePage}/>
+                <Route path="/update" component={EditDeletePage}/>
             </Switch>
         </BrowserRouter>
     </Provider>,
