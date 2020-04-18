@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import { requestBranded, requestUnbranded } from "../../actions/typeSelectorActions";
 import "./typeSelector.css"
+import {resetResultUrl} from "../../actions/resetActions";
 
 class TypeSelector extends React.Component {
     render() {
@@ -23,10 +24,12 @@ class TypeSelector extends React.Component {
 const mapDispatchToProps = dispatch => {
     return {
         requestUnbrandedUrl: () => {
-            dispatch(requestUnbranded())
+            dispatch(requestUnbranded());
+            dispatch(resetResultUrl());
         },
         requestBrandedUrl: () => {
-            dispatch(requestBranded())
+            dispatch(requestBranded());
+            dispatch(resetResultUrl());
         }
     }
 
