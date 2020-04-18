@@ -20,7 +20,7 @@ router.get('/:urlCode', async (req, res) => {
 });
 
 router.get('/:urlCode/update', (req, res) => {
-    res.redirect(301,"https://mern-url-app.herokuapp.com/update?" + req.params.urlCode)
+    res.redirect(301,"https://mern-url-app.herokuapp.com/update?urlCode=" + req.params.urlCode)
 });
 
 // router.get('/find/:urlCode', async (req, res) => {

@@ -1,11 +1,16 @@
 import React from 'react';
 import { Field, reduxForm} from 'redux-form';
 import { connect } from 'react-redux';
+import queryString from 'query-string';
 
 import { editShortenedUrl } from "../../actions/editUrlActions";
 import { deleteShortenedUrl } from "../../actions/deleteUrlActions";
 
 class EditForm extends React.Component {
+    componentDidMount() {
+        console.log(this.props.location.search)
+    }
+
     renderError({error, touched}) {
         if (touched && error) {
             return (
@@ -23,10 +28,20 @@ class EditForm extends React.Component {
         return (
             <div className={className}>
                 <label>{formProps.label}</label>
-                <input {...formProps.input} autoComplete="off" placeholder={formProps.placeholder}/>
+                <input {...formProps.input}
+                       autoComplete="off"
+                       placeholder={formProps.placeholder}
+                       value={this.renderPlaceHolder()}
+                />
                 <div>{this.renderError(formProps.meta)}</div>
             </div>
         );
+    };
+
+    renderPlaceHolder = () => {
+        if(this.props.location.search) {
+            return queryString.parse(this.props.location.search).urlCode
+        }
     };
 
     renderMessage = () => {
