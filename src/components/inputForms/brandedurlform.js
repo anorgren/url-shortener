@@ -50,7 +50,7 @@ class BrandedForm extends React.Component {
             originalUrl: formValues.url,
             isBranded: true,
             urlCode: formValues.brandedTerm,
-            baseUrl: "http://localhost:3001"
+            baseUrl: "https://mern-url-app.herokuapp.com/url"
         };
         this.props.createNewShortenedUrl(urlObject);
     };

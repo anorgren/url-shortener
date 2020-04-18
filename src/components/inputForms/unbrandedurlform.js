@@ -57,7 +57,7 @@ class UnbrandedForm extends React.Component {
     onSubmit = (formValues) => {
         let urlObject = {
             originalUrl: formValues.url,
-            baseUrl: "http://localhost"
+            baseUrl: "https://mern-url-app.herokuapp.com/url"
         };
         this.props.createNewShortenedUrl(urlObject);
         this.props.reset();

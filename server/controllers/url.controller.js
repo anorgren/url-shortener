@@ -38,12 +38,17 @@ router.patch('/:urlCode', async (req, res) => {
     return res.status(404).send("Could not update url code.")
 });
 
-router.post('/:urlCode', async (req, res) => {
+router.post('/edit/:urlCode', async (req, res) => {
     let urlItem = await UrlAccessor.getUrlByCode(req.params.urlCode);
     if (urlItem) {
-        return res.status(200).send("Found url")
+        const modifiedAt = new Date();
+        return UrlAccessor.updateUrlByCode(req.params.urlCode, {
+            originalUrl: req.body.originalUrl,
+            modifiedAt: modifiedAt
+        }).then(() => res.status(200).send(urlItem),
+            () => res.status(404).send('Error updating url.'))
     }
-    return res.status(404).send("didnt find")
+    return res.status(404).send("Could not update url code.")
 });
 
 router.delete('/:urlCode', (req, res) => {
