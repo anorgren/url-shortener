@@ -6,14 +6,14 @@ const Header = () => {
     return (
         <div className="ui secondary pointing menu">
             <Link to="/" className="item">
-                Url Shrtnr
+                Url Shortner
             </Link>
             <div className="right menu">
                 <Link to="/" className="item">
                     Create New
                 </Link>
-                <Link to="/edit" className="item">
-                    Edit
+                <Link to="/update" className="item">
+                    Update
                 </Link>
                 <Link to="/delete" className="item">
                     Delete

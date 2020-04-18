@@ -23,7 +23,7 @@ ReactDOM.render(
         <BrowserRouter>
             <Switch>
                 <Route path="/" exact component={App}/>
-                <Route path="/edit" exact component={EditPage}/>
+                <Route path="/update" exact component={EditPage}/>
                 <Route path="/delete" exact component={DeletePage}/>
             </Switch>
         </BrowserRouter>

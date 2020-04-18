@@ -5,6 +5,7 @@ import Header from "./header";
 import BrandedForm from "../inputForms/brandedurlform";
 import UnbrandedForm from "../inputForms/unbrandedurlform";
 import TypeSelector from "../typeSelector/typeSelector";
+import './app.css'
 
 
 class App extends React.Component {
@@ -24,14 +25,11 @@ class App extends React.Component {
                     <div className='ui center aligned segment'>
                         <h2>Generate A New Short Url</h2>
                     </div>
-                    <div className='ui basic segment'>
-                        {this._renderForm()}
-                    </div>
-                    <div className='ui basic center aligned segment'>
-
-                    </div>
                     <div className='ui basic center aligned segment'>
                         <TypeSelector/>
+                    </div>
+                    <div className='ui basic segment'>
+                        {this._renderForm()}
                     </div>
                 </div>
             </div>

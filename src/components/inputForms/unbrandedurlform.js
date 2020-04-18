@@ -2,18 +2,54 @@ import React from 'react';
 import { Field, reduxForm} from 'redux-form';
 import { connect } from 'react-redux';
 
-import { createNewShortenedUrl } from '../../actions/inputActions'
+import { createNewShortenedUrl } from '../../actions/inputActions';
+
 
 class UnbrandedForm extends React.Component {
+    renderError({error, touched}) {
+        if (touched && error) {
+            return (
+                <div className=" ui tiny error message">
+                    <div className="header">
+                        {error}
+                    </div>
+                </div>
+            )
+        }
+    }
+
     renderInput = (formProps) => {
-        const className = `field ${formProps.meta.error && formProps.meta.touched ? 'error' : ''}`;
+        const className= `field ${formProps.meta.error && formProps.meta.touched ? 'error': ''}`;
         return (
             <div className={className}>
-                <label>Url To Shorten</label>
-                <div className='ui action input'>
-                    <input {...formProps.input} autoComplete='off' type="text" placeholder='Url to shorten'/>
-                    <button className="ui button primary">Shorten</button>
-                </div>
+                <label>{formProps.label}</label>
+                <input {...formProps.input} type='text' autoComplete="off" placeholder={formProps.placeholder}/>
+                <div>{this.renderError(formProps.meta)}</div>
+            </div>
+        );
+    };
+
+    // renderInput = (formProps) => {
+    //     const className = `field ${formProps.meta.error && formProps.meta.touched ? 'error' : ''}`;
+    //     return (
+    //         <div className={className}>
+    //             <label>Url To Shorten</label>
+    //             <input {...formProps.input} autoComplete='off' type="text" placeholder='Url to shorten'/>
+    //             <div>{this.renderError(formProps.meta)}</div>
+    //         </div>
+    //     )
+    // };
+
+    renderOutputMsg = () => {
+        let message;
+        if (this.props.resultUrl === "default") {
+            message = "";
+        } else if (this.props.resultUrl.shortUrl) {
+            message = "Your shortened url: " + this.props.resultUrl.shortUrl
+        }
+        return (
+            <div className='ui segment basic center aligned'>
+                {message}
             </div>
         )
     };
@@ -29,8 +65,21 @@ class UnbrandedForm extends React.Component {
 
     render() {
         return (
-            <form onSubmit={this.props.handleSubmit(this.onSubmit)} className="ui form">
-                <Field name="url" component={this.renderInput} placeholder="Url to be shortened..." />
+            <form onSubmit={this.props.handleSubmit(this.onSubmit)} className="ui form error main-form">
+                <Field name="url"
+                       component={this.renderInput}
+                       placeholder="Url to be shortened..."
+                       label="Url To Shorten"
+                />
+                {this.renderOutputMsg()}
+                <div className='ui segment basic center aligned bottom-component'>
+                    <button className='ui button primary'
+                            onClick={this.props.handleSubmit(values => {
+                                this.onSubmit(values)
+                            })}>
+                        Submit
+                    </button>
+                </div>
             </form>
         )
     }
@@ -38,14 +87,13 @@ class UnbrandedForm extends React.Component {
 
 const mapStateToProps  = (state) => {
     return {
-        // remainingGuesses: state.remainingGuesses.remainingGuesses
+        resultUrl: state.resultUrl.shortenedUrl
     }
 };
 
 
 const validate = (formValues) => {
     const errors = {};
-
     try {
        new URL(formValues.url)
     } catch (_) {

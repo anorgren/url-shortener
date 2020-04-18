@@ -3,6 +3,7 @@ import { Field, reduxForm} from 'redux-form';
 import { connect } from 'react-redux';
 
 import { deleteShortenedUrl } from "../../actions/deleteUrlActions";
+import './delete.css'
 
 
 class DeleteForm extends React.Component {
@@ -52,15 +53,17 @@ class DeleteForm extends React.Component {
                 <Field name="urlCode"
                        component={this.renderInput}
                        label='Url Code'
-                       placeholder="The shortened url ending to edit"/>
+                       placeholder="The shortened url ending of the resource to be deleted"/>
                 {this.renderErrorMessage()}
-                <button className='ui button primary'
-                        onClick={this.props.handleSubmit(values => {
-                            this.onSubmit(values)
+                <div className='ui segment basic center aligned bottom-component'>
+                    <button className='ui button primary'
+                            onClick={this.props.handleSubmit(values => {
+                                this.onSubmit(values)
                             })}>
                         <i className="trash can icon"/>
                         Delete Url
-                </button>
+                    </button>
+                </div>
             </form>
         )
     }
@@ -77,6 +80,9 @@ const validate = (formValues) => {
     const errors = {};
     if (!formValues.urlCode) {
         errors.urlCode = "You must enter a valid url code."
+    }
+    if(formValues.urlCode && /\s/.test(formValues.urlCode)) {
+        errors.urlCode = "Branded term cannot contain any whitespace"
     }
     return errors;
 };

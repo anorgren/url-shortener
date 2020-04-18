@@ -19,17 +19,18 @@ function receiveShortUrlSuccess(shortUrl) {
     }
 }
 
-function receiveShortUrlError() {
+function receiveShortUrlError(error) {
     return {
-        type: RESPONSE_URL_TO_BE_SHORTENED_ERROR
+        type: RESPONSE_URL_TO_BE_SHORTENED_ERROR,
+        payload: error
     }
 }
 
 export function createNewShortenedUrl(urlObject) {
     return function(dispatch) {
         dispatch(requestUrlShortened());
-        return urlDatabase.post("/api/urlShort", urlObject)
+        return urlDatabase.post("/url", urlObject)
             .then(response => dispatch(receiveShortUrlSuccess(response.data)),
-                receiveShortUrlError)
+                err => dispatch(receiveShortUrlError(err)))
     }
 }

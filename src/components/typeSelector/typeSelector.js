@@ -5,30 +5,9 @@ import { requestBranded, requestUnbranded } from "../../actions/typeSelectorActi
 import "./typeSelector.css"
 
 class TypeSelector extends React.Component {
-    componentDidMount() {
-    }
-
-    // renderClassNames = () => {
-    //     let baseClassName = "ui button navy";
-    //     let activeClassName = "ui button positive active";
-    //     let classNames = {
-    //         unbranded: baseClassName,
-    //         branded: baseClassName
-    //     };
-    //     if (this.props.createBranded) {
-    //         classNames.branded = activeClassName;
-    //         classNames.unbranded = activeClassName;
-    //     } else {
-    //         classNames.branded = activeClassName;
-    //         classNames.unbranded = activeClassName;
-    //     }
-    //     return classNames;
-    // };
-
     render() {
         return (
-
-            <div className="ui buttons">
+            <div className="ui buttons fluid">
                 <button className="ui button gray" onClick={this.props.requestUnbrandedUrl}>
                     Unbranded
                 </button>

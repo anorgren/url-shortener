@@ -12,7 +12,7 @@ class EditPage extends React.Component {
                 <Header/>
                 <div className='ui segments'>
                     <div className='ui center aligned segment'>
-                        <h2>Edit Created Urls</h2>
+                        <h2>Update An Existing Url</h2>
                     </div>
                     <div className='ui basic segment'>
                     </div>

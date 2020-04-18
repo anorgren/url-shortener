@@ -1,0 +1,13 @@
+.delete-page {
+ height: 300px;
+}
+
+.delete-form {
+    position: relative;
+}
+
+.bottom-component {
+    position: absolute;
+    bottom: 0px;
+}
+

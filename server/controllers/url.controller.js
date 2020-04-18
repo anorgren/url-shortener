@@ -32,7 +32,7 @@ router.patch('/:urlCode', async (req, res) => {
         return UrlAccessor.updateUrlByCode(req.params.urlCode, {
             originalUrl: req.body.originalUrl,
             modifiedAt: modifiedAt
-        }).then(() => res.status(200).send(`Updated url successfully.`),
+        }).then(() => res.status(200).send(urlItem),
             () => res.status(404).send('Error updating url.'))
     }
     return res.status(404).send("Could not update url code.")
@@ -51,8 +51,7 @@ router.delete('/:urlCode', (req, res) => {
     return res.status(200).send("Success!");
 });
 
-// route to create a URL
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
     const {originalUrl, baseUrl, isBranded} = req.body;
 
     let urlCode;
@@ -62,6 +61,10 @@ router.post('/', (req, res) => {
 
     if (isBranded) {
         urlCode = req.body.urlCode;
+        let exists = await UrlAccessor.getUrlByCode(urlCode);
+        if(exists) {
+            return res.status(400).send("Branded term cannot be used.")
+        }
     } else {
         urlCode = shortUrlGenerator.generate();
     }

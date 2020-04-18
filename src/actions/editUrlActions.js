@@ -24,7 +24,7 @@ function responseUrlError(editedUrl) {
 export function editShortenedUrl(urlObject) {
     return function(dispatch) {
         dispatch(requestUrlEdit());
-        return urlDatabase.patch(`/api/urlShort/${urlObject.urlCode}`, urlObject)
+        return urlDatabase.patch(`/url/${urlObject.urlCode}`, urlObject)
             .then(response => dispatch(responseUrlSuccess(response.data)),
                 (err) => dispatch(responseUrlError(err)))
     }

@@ -20,3 +20,8 @@
     background-color: #1768AC;
     color: #fff;
 }
+
+.bottom-component {
+    position: absolute;
+    bottom: 0px;
+}

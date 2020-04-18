@@ -4,26 +4,43 @@ import { connect } from 'react-redux';
 
 import { createNewShortenedUrl } from '../../actions/inputActions'
 
+
 class BrandedForm extends React.Component {
-    renderInputUrl = (formProps) => {
-        const className = `field ${formProps.meta.error && formProps.meta.touched ? 'error' : ''}`;
+    renderError({error, touched}) {
+        if (touched && error) {
+            return (
+                <div className=" ui tiny error message">
+                    <div className="header">
+                        {error}
+                    </div>
+                </div>
+            )
+        }
+    }
+
+    renderInput = (formProps) => {
+        const className= `field ${formProps.meta.error && formProps.meta.touched ? 'error': ''}`;
         return (
             <div className={className}>
-                <label>Url To Shorten</label>
-                <div className='ui action input'>
-                    <input {...formProps.input} autoComplete='off' type="text" placeholder='Url to shorten'/>
-                    <button className="ui button primary">Shorten</button>
-                </div>
+                <label>{formProps.label}</label>
+                <input {...formProps.input} type='text' autoComplete="off" placeholder={formProps.placeholder}/>
+                <div>{this.renderError(formProps.meta)}</div>
             </div>
-        )
+        );
     };
 
-    renderInputBrandedTerm = (formProps) => {
-        const className = `field ${formProps.meta.error && formProps.meta.touched ? 'error' : ''}`;
+    renderOutputMsg = () => {
+        let message;
+        if (this.props.resultUrl === "default") {
+            message = "";
+        } else if (this.props.resultUrl.shortUrl) {
+            message = "Your shortened url: " + this.props.resultUrl.shortUrl
+        } else {
+            message = "Cannot use selected branded term, please choose another.";
+        }
         return (
-            <div className={className}>
-                <label>Branded Term</label>
-                <input {...formProps.input} autoComplete='off' type="text" placeholder="Your custom url ending"/>
+            <div className='ui segment basic center aligned'>
+                {message}
             </div>
         )
     };
@@ -40,9 +57,26 @@ class BrandedForm extends React.Component {
 
     render() {
         return (
-            <form onSubmit={this.props.handleSubmit(this.onSubmit)} className="ui form">
-                <Field name="url" component={this.renderInputUrl}/>
-                <Field name='brandedTerm' component={this.renderInputBrandedTerm}/>
+            <form onSubmit={this.props.handleSubmit(this.onSubmit)} className="ui form error main-form">
+                <Field name="url"
+                       component={this.renderInput}
+                       placeholder='Url to shorten'
+                       label='Url to shorten'
+                />
+                <Field name='brandedTerm'
+                       component={this.renderInput}
+                       placeholder='Your custom branded url ending'
+                       label='Branded Term'
+                />
+                {this.renderOutputMsg()}
+                <div className='ui segment basic center aligned bottom-component'>
+                    <button className='ui button primary'
+                            onClick={this.props.handleSubmit(values => {
+                                this.onSubmit(values)
+                            })}>
+                        Submit
+                    </button>
+                </div>
             </form>
         )
     }
@@ -50,22 +84,20 @@ class BrandedForm extends React.Component {
 
 const mapStateToProps  = (state) => {
     return {
-        state
+        resultUrl: state.resultUrl.shortenedUrl
     }
 };
 
 
 const validate = (formValues) => {
     const errors = {};
-
-    if(formValues.length < 1) {
-        errors.length = "Branded term not be empty."
-    }
-
     try {
         new URL(formValues.url)
     } catch (_) {
-        errors.url = "Invalid url"
+        errors.url = "Please input a valid url with http(s) protocol"
+    }
+    if(formValues.brandedTerm && /\s/.test(formValues.brandedTerm)) {
+        errors.brandedTerm = "Branded term cannot contain any whitespace"
     }
     return errors;
 };

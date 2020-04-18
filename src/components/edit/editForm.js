@@ -31,10 +31,8 @@ class EditForm extends React.Component {
 
     renderErrorMessage = () => {
         let message;
-        if(this.props.editMessage) {
-            message = this.props.editMessage
-        } else if (this.props.deleteMessage) {
-            message = this.props.deleteMessage
+        if(this.props.url.editedUrl) {
+            message = `Successfully updated url. Your url: ${this.props.url.editedUrl.shortUrl}`
         }
         return (
             <div className='ui basic center aligned segment'>
@@ -62,26 +60,19 @@ class EditForm extends React.Component {
                 <Field name="urlCode"
                        component={this.renderInput}
                        label='Url Code'
-                       placeholder="The shortened url ending to edit"/>
+                       placeholder="The shortened url ending of the resource to update"/>
                 <Field name='newLinkUrl'
                        component={this.renderInput}
-                       label='New Link Url (required for editing)'
-                       placeholder="New url to link to current shortened url"/>
+                       label='New Link Url'
+                       placeholder="New url to link to current shortened url resource"/>
                 {this.renderErrorMessage()}
-                <div className="ui buttons">
-                    <button className='ui button'
+                <div className="ui basic segment center aligned">
+                    <button className='ui primary button'
                             onClick={this.props.handleSubmit(values => {
                                 this.onSubmit({
                                     ...values, edit: true
                                 })
                     })}>Edit Url</button>
-                    <div className="or"/>
-                    <button className='ui button'
-                            onClick={this.props.handleSubmit(values => {
-                                this.onSubmit({
-                                    ...values, edit: false
-                                })
-                    })}>Delete Url</button>
                 </div>
             </form>
         )
@@ -90,8 +81,7 @@ class EditForm extends React.Component {
 
 const mapStateToProps  = (state) => {
     return {
-        editMessage: state.editedUrl.editedUrl,
-        deleteMessage: state.deleteUrl.deleteMsg
+        url: state.editedUrl
     }
 };
 
@@ -99,7 +89,7 @@ const mapStateToProps  = (state) => {
 const validate = (formValues) => {
     const errors = {};
     if (!formValues.urlCode) {
-        errors.urlCode = "You must enter a valid url code."
+        errors.urlCode = "You must enter a url code."
     }
     if (!formValues.newLinkUrl) {
         errors.newLinkUrl = "You must enter a url."

@@ -32,7 +32,7 @@ app.use(function(req, res, next) {
         next();
     }
 });
-app.use('/api/urlShort', urlShort);
+app.use('/url', urlShort);
 
 app.use(express.static(path.join(__dirname, '..', 'build')));
 app.get("*", (req, res) => {

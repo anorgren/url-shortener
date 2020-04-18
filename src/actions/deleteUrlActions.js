@@ -22,7 +22,8 @@ function responseDeleteError() {
 export function deleteShortenedUrl(urlCode) {
     return function(dispatch) {
         dispatch(requestUrlDelete());
-        return urlDatabase.delete(`/api/urlShort/${urlCode}`)
-            .then(response => dispatch(responseDeleteSuccess())).catch((err) => dispatch(responseDeleteError()))
+        return urlDatabase.delete(`/url/${urlCode}`)
+            .then(response => dispatch(responseDeleteSuccess()))
+            .catch((err) => dispatch(responseDeleteError()))
     }
 }
