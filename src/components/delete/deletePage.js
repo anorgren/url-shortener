@@ -1,23 +1,23 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import EditForm from "./editForm";
 import Header from "../app/header";
+import DeleteForm from "./deleteForm";
 
 
-class EditPage extends React.Component {
+class DeletePage extends React.Component {
     render() {
         return (
             <div className='ui container'>
                 <Header/>
                 <div className='ui segments'>
                     <div className='ui center aligned segment'>
-                        <h2>Edit Created Urls</h2>
+                        <h2>Delete Created Urls</h2>
                     </div>
                     <div className='ui basic segment'>
                     </div>
                     <div className='ui basic left aligned segment'>
-                        <EditForm/>
+                        <DeleteForm/>
                     </div>
                 </div>
             </div>
@@ -25,11 +25,4 @@ class EditPage extends React.Component {
     }
 }
 
-const mapStateToProps = state => {
-    return {
-        editMessage: state.editedUrl.editedUrl,
-        deleteMessage: state.deleteUrl.deleteMessage
-    }
-};
-
-export default connect(mapStateToProps)(EditPage);
+export default connect()(DeletePage);

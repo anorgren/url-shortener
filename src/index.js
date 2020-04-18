@@ -8,6 +8,7 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 import App from "./components/app/app";
 import EditPage from "./components/edit/editPage";
+import DeletePage from "./components/delete/deletePage";
 
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -23,6 +24,7 @@ ReactDOM.render(
             <Switch>
                 <Route path="/" exact component={App}/>
                 <Route path="/edit" exact component={EditPage}/>
+                <Route path="/delete" exact component={DeletePage}/>
             </Switch>
         </BrowserRouter>
     </Provider>,

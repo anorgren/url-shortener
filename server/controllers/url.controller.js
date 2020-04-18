@@ -26,24 +26,16 @@ router.get('/:urlCode', async (req, res) => {
 });
 
 router.patch('/:urlCode', async (req, res) => {
-
     let urlItem = await UrlAccessor.getUrlByCode(req.params.urlCode);
     if (urlItem) {
-        return res.status(200).send("Found url")
+        const modifiedAt = new Date();
+        return UrlAccessor.updateUrlByCode(req.params.urlCode, {
+            originalUrl: req.body.originalUrl,
+            modifiedAt: modifiedAt
+        }).then(() => res.status(200).send(`Updated url successfully.`),
+            () => res.status(404).send('Error updating url.'))
     }
-    return res.status(404).send("didnt find")
-    // const modifiedDate = new Date();
-    // let url = await UrlAccessor.getUrlByCode(req.params.urlCode);
-    //
-    // if (url) {
-    //     return UrlAccessor.updateUrlByCode(req.params.urlCode, {
-    //         originalUrl: req.body.originalUrl,
-    //         modifiedAt: modifiedDate
-    //     }).then(() => res.status(200).send(`Updated url ${url.urlCode} successfully`),
-    //         (error) => res.status(404).send(`Error updating url code ${error}`))
-    // } else {
-    //     return res.status(404).send("Url code does not exist")
-    // }
+    return res.status(404).send("Could not update url code.")
 });
 
 router.post('/:urlCode', async (req, res) => {

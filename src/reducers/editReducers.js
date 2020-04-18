@@ -4,14 +4,14 @@ import {
     RESPONSE_URL_EDIT_SUCCESS
 } from "../constants/actionTypes";
 
-export default (state = {editedUrl: {}}, action) => {
+export default (state, action) => {
     switch(action.type) {
         case REQUEST_URL_EDIT:
-            return { ...state, editedUrl: {} };
+            return { ...state };
         case RESPONSE_URL_EDIT_SUCCESS:
             return { ...state, editedUrl: action.payload };
         case RESPONSE_URL_EDIT_ERROR:
-            return {...state, editedUrl: {error: "Cannot find url to edit"}};
+            return {...state, editedUrl: "Provided url code does not exist."};
         default:
             return {...state};
     }

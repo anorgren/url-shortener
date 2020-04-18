@@ -14,9 +14,10 @@ function responseUrlSuccess(editedUrl) {
     }
 }
 
-function responseUrlError() {
+function responseUrlError(editedUrl) {
     return {
-        type: RESPONSE_URL_EDIT_ERROR
+        type: RESPONSE_URL_EDIT_ERROR,
+        payload: editedUrl
     }
 }
 
@@ -25,6 +26,6 @@ export function editShortenedUrl(urlObject) {
         dispatch(requestUrlEdit());
         return urlDatabase.patch(`/api/urlShort/${urlObject.urlCode}`, urlObject)
             .then(response => dispatch(responseUrlSuccess(response.data)),
-                () => dispatch(responseUrlError()))
+                (err) => dispatch(responseUrlError(err)))
     }
 }

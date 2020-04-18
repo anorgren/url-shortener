@@ -6,29 +6,39 @@ import { editShortenedUrl } from "../../actions/editUrlActions";
 import { deleteShortenedUrl } from "../../actions/deleteUrlActions";
 
 class EditForm extends React.Component {
+    renderError({error, touched}) {
+        if (touched && error) {
+            return (
+                <div className=" ui tiny error message">
+                    <div className="header">
+                        {error}
+                    </div>
+                </div>
+            )
+        }
+    }
 
-    renderUrlCodeField = (formProps) => {
-        const className = `field ${formProps.meta.error && formProps.meta.touched ? 'error' : ''}`;
+    renderInput = (formProps) => {
+        const className= `field ${formProps.meta.error && formProps.meta.touched ? 'error': ''}`;
         return (
             <div className={className}>
-                <label>Url Code</label>
-                <input {...formProps.input}
-                       autoComplete='off'
-                       type="text"
-                       placeholder="The shortened url ending to edit"/>
+                <label>{formProps.label}</label>
+                <input {...formProps.input} autoComplete="off" placeholder={formProps.placeholder}/>
+                <div>{this.renderError(formProps.meta)}</div>
             </div>
-        )
+        );
     };
 
-    renderNewUrlField = (formProps) => {
-        const className = `field ${formProps.meta.error && formProps.meta.touched ? 'error' : ''}`;
+    renderErrorMessage = () => {
+        let message;
+        if(this.props.editMessage) {
+            message = this.props.editMessage
+        } else if (this.props.deleteMessage) {
+            message = this.props.deleteMessage
+        }
         return (
-            <div className={className}>
-                <label>New Url</label>
-                <input {...formProps.input}
-                       autoComplete='off'
-                       type="text"
-                       placeholder="New url to link to current shortened url"/>
+            <div className='ui basic center aligned segment'>
+                {message}
             </div>
         )
     };
@@ -46,10 +56,18 @@ class EditForm extends React.Component {
     };
 
     render() {
+        console.log(this.props)
         return (
-            <form onSubmit={this.props.handleSubmit(this.onSubmit)} className="ui form">
-                <Field name="urlCode" component={this.renderUrlCodeField}/>
-                <Field name='newLinkUrl' component={this.renderNewUrlField}/>
+            <form onSubmit={this.props.handleSubmit(this.onSubmit)} className="ui error form">
+                <Field name="urlCode"
+                       component={this.renderInput}
+                       label='Url Code'
+                       placeholder="The shortened url ending to edit"/>
+                <Field name='newLinkUrl'
+                       component={this.renderInput}
+                       label='New Link Url (required for editing)'
+                       placeholder="New url to link to current shortened url"/>
+                {this.renderErrorMessage()}
                 <div className="ui buttons">
                     <button className='ui button'
                             onClick={this.props.handleSubmit(values => {
@@ -72,25 +90,28 @@ class EditForm extends React.Component {
 
 const mapStateToProps  = (state) => {
     return {
-        state
+        editMessage: state.editedUrl.editedUrl,
+        deleteMessage: state.deleteUrl.deleteMsg
     }
 };
 
 
 const validate = (formValues) => {
     const errors = {};
-
-    if(formValues.urlCode) {
-        if(formValues.urlCode.length < 1) {
-            errors.length = "Must include a url ending to edit."
+    if (!formValues.urlCode) {
+        errors.urlCode = "You must enter a valid url code."
+    }
+    if (!formValues.newLinkUrl) {
+        errors.newLinkUrl = "You must enter a url."
+    } else {
+        try {
+            new URL(formValues.newLinkUrl)
+        } catch (e) {
+            errors.newLinkUrl = "You must enter a valid url with http(s) protocol"
         }
     }
 
-    try {
-        new URL(formValues.url)
-    } catch (_) {
-        errors.url = "Invalid url"
-    }
+
     return errors;
 };
 
