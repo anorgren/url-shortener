@@ -47,15 +47,17 @@ class DeleteForm extends React.Component {
     };
 
     onSubmit = async (formValues) => {
-       this.props.deleteShortenedUrl(formValues.urlCode);
-       this.props.history.push("/")
+       let isDeleted = await this.props.deleteShortenedUrl(formValues.urlCode);
+       if (isDeleted) {
+           this.props.history.push("/")
+       }
     };
 
     renderDefaultValue = () => {
         if (this.props.queryValue) {
             return this.props.queryValue;
         } else {
-            return ""
+            return "The shortened url ending of the resource to be deleted"
         }
     };
 
@@ -65,8 +67,7 @@ class DeleteForm extends React.Component {
                 <Field name="urlCode"
                        component={this.renderInput}
                        label='Url Code'
-                       placeholder="The shortened url ending of the resource to be deleted"
-                       defaultValue={this.renderDefaultValue()}
+                       placeholder={this.renderDefaultValue()}
                 />
                 {this.renderErrorMessage()}
                 <div className='ui segment basic center aligned bottom-component'>

@@ -7,7 +7,6 @@ import thunkMiddleware from 'redux-thunk';
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 import App from "./components/app/app";
-import DeletePage from "./components/delete/deletePage";
 import EditDeletePage from "./components/edit/editDeletePage";
 import Header from "./components/app/header";
 

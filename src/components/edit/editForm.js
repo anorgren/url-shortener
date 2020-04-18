@@ -49,6 +49,7 @@ class EditForm extends React.Component {
         )
     };
 
+
     onSubmit = (formValues) => {
         if (formValues.edit) {
             let urlObject = {
@@ -65,7 +66,7 @@ class EditForm extends React.Component {
         if (this.props.queryValue) {
             return this.props.queryValue;
         } else {
-            return ""
+            return "The shortened url ending of the resource to update"
         }
     };
 
@@ -75,14 +76,12 @@ class EditForm extends React.Component {
                 <Field name="urlCode"
                        component={this.renderInput}
                        label='Url Code'
-                       placeholder="The shortened url ending of the resource to update"
-                       defaultValue={this.renderDefaultValue()}
+                       placeholder={this.renderDefaultValue()}
                 />
                 <Field name='newLinkUrl'
                        component={this.renderInput}
                        label='New Link Url'
                        placeholder="New url to link to current shortened url resource"
-                       defaultValue=""
                 />
                 {this.renderMessage()}
                 <div className="ui basic segment center aligned">
