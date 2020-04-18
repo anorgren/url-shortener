@@ -12,8 +12,8 @@ const Header = () => {
                 <Link to="/" className="item">
                     Create New
                 </Link>
-                <Link to="/update" className="item">
-                    Update
+                <Link to="/edit" className="item">
+                    Edit
                 </Link>
             </div>
         </div>
